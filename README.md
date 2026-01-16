@@ -1,10 +1,10 @@
-# newtab-hub
+# homepage-hub
 
-A minimal, Nord-themed new tab dashboard featuring a New Year countdown, todo list, Pomodoro timer, and more. Perfect for productivity enthusiasts who appreciate clean design and privacy.
+A minimal, Nord-themed home page tab dashboard featuring a New Year countdown, todo list, Pomodoro timer, and more. Perfect for productivity enthusiasts who appreciate clean design and privacy.
 
 ## 🌐 Live Demo
 
-[View Live Site](https://newtab-hub.vercel.app/)
+[View Live Site](https://homepage-hub.vercel.app/)
 
 
 ## ❓ Why a Web Page, Not an Extension?
@@ -13,7 +13,7 @@ I originally planned to release this as a Chrome extension, but publishing to th
 
 ## 📋 About
 
-newtab-hub is a customizable new tab replacement for your browser. It combines a countdown to the New Year, a persistent todo list, Pomodoro timer, and motivational quotes—all styled with the [Nord](https://www.nordtheme.com/) color palette. No accounts, no tracking, just productivity.
+homepage-hub is a customizable homepage replacement for your browser. It combines a countdown to the New Year, a persistent todo list, Pomodoro timer, and motivational quotes—all styled with the [Nord](https://www.nordtheme.com/) color palette. No accounts, no tracking, just productivity.
 
 ## 🛠️ Built With
 
@@ -37,9 +37,8 @@ newtab-hub is a customizable new tab replacement for your browser. It combines a
 ## 🏠 Set as Your New Tab
 
 **Chrome / Brave / Edge:**
-1. Install Custom New Tab URL from Chrome Web Store
+1. Open the home page option
 2. Enter your deployed site URL
-3. Open a new tab—done!
 
 **Firefox:**
 1. Go to `about:preferences#home`
