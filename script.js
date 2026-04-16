@@ -90,7 +90,7 @@ const TimeDisplay = {
     elements.currentDate.textContent = now.toLocaleDateString('en-US', dateOptions);
     
     // Update page title with time
-    document.title = `${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })} - New Year Countdown`;
+    document.title = `${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
   }
 };
 
