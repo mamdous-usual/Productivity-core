@@ -126,10 +126,21 @@ const Countdown = {
     
     const diff = newYear - now;
     
-    // Calculate time units
-    const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const months = Math.floor(totalDays / 30.44); // Average days per month
-    const days = Math.floor(totalDays % 30.44);
+    // Calculate time units with proper month handling
+    let months = 0;
+    let tempDate = new Date(now);
+    
+    // Count full months
+    while (true) {
+      const nextMonth = new Date(tempDate.getFullYear(), tempDate.getMonth() + 1, tempDate.getDate());
+      if (nextMonth > newYear) break;
+      months++;
+      tempDate = nextMonth;
+    }
+    
+    // Calculate remaining days after months
+    const daysMs = newYear - tempDate;
+    const days = Math.floor(daysMs / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
