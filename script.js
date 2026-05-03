@@ -141,9 +141,10 @@ const Countdown = {
     // Calculate remaining days after months
     const daysMs = newYear - tempDate;
     const days = Math.floor(daysMs / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const remainingMs = daysMs % (1000 * 60 * 60 * 24);
+    const hours = Math.floor(remainingMs / (1000 * 60 * 60));
+    const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
     
     // Update display
     elements.months.textContent = this.padZero(months);
