@@ -126,30 +126,51 @@ const Countdown = {
     
     const diff = newYear - now;
     
-    // Calculate time units with proper month handling
+    // Calculate time units accounting for varying month lengths
     let months = 0;
-    let tempDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+    let tempDate = new Date(now);
+    const originalDay = now.getDate();
     
-    // Count full months
+    // Count full months - try to keep same day-of-month, use last day if month is shorter
     while (true) {
-      const nextMonth = new Date(tempDate.getFullYear(), tempDate.getMonth() + 1, tempDate.getDate(), 0, 0, 0);
-      if (nextMonth > newYear) break;
+      const currentMonth = tempDate.getMonth();
+      const currentYear = tempDate.getFullYear();
+      
+      // Calculate next month
+      let nextMonth = currentMonth + 1;
+      let nextYear = currentYear;
+      if (nextMonth > 11) {
+        nextMonth = 0;
+        nextYear = currentYear + 1;
+      }
+      
+      // Get the day to use (prefer original day, or last day of month if too short)
+      const daysInNextMonth = this.getDaysInMonth(nextYear, nextMonth);
+      const dayToUse = Math.min(originalDay, daysInNextMonth);
+      
+      const nextDate = new Date(nextYear, nextMonth, dayToUse, tempDate.getHours(), tempDate.getMinutes(), tempDate.getSeconds());
+      
+      if (nextDate > newYear) break;
       months++;
-      tempDate = nextMonth;
+      tempDate = nextDate;
     }
     
-    // Calculate remaining time after months
-    const remainingMs = newYear - now;
-    const totalDays = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
-    const remainingAfterDays = remainingMs % (1000 * 60 * 60 * 24);
+    // Count remaining full days after months
+    let days = 0;
+    let tempDay = new Date(tempDate);
+    while (true) {
+      const nextDay = new Date(tempDay);
+      nextDay.setDate(nextDay.getDate() + 1);
+      if (nextDay >= newYear) break;
+      days++;
+      tempDay = nextDay;
+    }
     
-    // Subtract the full months in days
-    const monthsInDays = totalDays - Math.floor((tempDate - new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)) / (1000 * 60 * 60 * 24));
-    const days = totalDays - Math.floor((tempDate - new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)) / (1000 * 60 * 60 * 24));
-    
-    const hours = Math.floor(remainingAfterDays / (1000 * 60 * 60));
-    const minutes = Math.floor((remainingAfterDays % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((remainingAfterDays % (1000 * 60)) / 1000);
+    // Calculate remaining time from tempDay
+    const remainingMs = newYear - tempDay;
+    const hours = Math.floor(remainingMs / (1000 * 60 * 60)) % 24;
+    const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
     
     // Update display
     elements.months.textContent = this.padZero(months);
@@ -169,6 +190,10 @@ const Countdown = {
   
   padZero(num) {
     return num.toString().padStart(2, '0');
+  },
+  
+  getDaysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
   },
   
   celebrate() {
