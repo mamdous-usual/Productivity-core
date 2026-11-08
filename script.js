@@ -42,9 +42,6 @@ const elements = {
   // Greeting
   greeting: document.getElementById('greeting'),
   quote: document.getElementById('quote'),
-  
-  // Footer
-  setAsHome: document.getElementById('setAsHome')
 };
 
 // =============================================
@@ -638,18 +635,6 @@ function requestNotificationPermission() {
 }
 
 // =============================================
-// Set as Homepage Helper
-// =============================================
-function setupHomepageLink() {
-  if (elements.setAsHome) {
-    elements.setAsHome.addEventListener('click', (e) => {
-      e.preventDefault();
-      showNotification('To set as homepage: Go to your browser settings → Homepage → Enter this URL', 'warning');
-    });
-  }
-}
-
-// =============================================
 // Initialize Everything
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -660,7 +645,6 @@ document.addEventListener('DOMContentLoaded', () => {
   TodoList.init();
   Greeting.init();
   requestNotificationPermission();
-  setupHomepageLink();
 });
 
 // Make TodoList methods accessible globally for onclick handlers
